@@ -2,21 +2,22 @@
 import random
 
 class MultiSidedDie:
+    first = 0
+    random.seed(9001)
+    def __init__(self,num_of_sides):
+        self.num_of_sides = num_of_sides
 
-  #constructor here
-    def __init__(self):
-        pass
+    def roll(self):
+        self.first = random.randint(1,self.num_of_sides)
+        return self.first
 
-    def roll():
+    def set_value(self,value):
+        self.first = value
 
-    def set_value():
-        pass
+    def get_value(self):
+        return self.first 
 
-    def get_value():
-        pass
+dice_instance = MultiSidedDie(5)
+print(dice_instance.roll())
 
-  #define method 'roll' to roll the MultiSidedDie
 
-  #define method 'get_value' to return the current value of the MultiSidedDie
-
-  #define method 'set_value' to set the die to a particular value
