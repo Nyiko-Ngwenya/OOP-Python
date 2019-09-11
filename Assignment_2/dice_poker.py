@@ -18,7 +18,14 @@ class Poker:
                 if move_2 == 'score':
                     print(self.score())
                 elif move_2 == 'roll':
-                    roll_index = input('Which is the dice you want to reroll:')
+                    roll_index = int(input('Which is the dice you want to reroll:'))
+                    if roll_index >= 0 and roll_index <= 5:
+                        self.roll(roll_index)
+                elif move == 'quit':
+                    print(f'Your total money is ${self.money}')
+                    break
+                else:
+                    print('Please try again cant recognise command.')
             elif move == 'quit':
                 print(f'Your total money is ${self.money}')
                 break
@@ -30,12 +37,12 @@ class Poker:
 
     
     def roll(self,dice_change):
-        self.dice_rolls[dice_change] = random.randint(1,6)
+        self.dice_rolls[dice_change] = 2
     
     def value(self):
         return self.dice_rolls
 
-    def reset_round(self):
+    def reset_round(sepllf):
         pass
     def start(self):
         pass
