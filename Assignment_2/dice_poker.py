@@ -6,20 +6,22 @@ class Poker:
     dice_rolls = []
     def __init__(self):
         while self.money>0:
-            print(f'Your money: {self.money}')
-            move = input('What is your move :')
+            print(f'Your money: ${self.money}')
+            move = input('What is your move 1.play 2.quit:')
             if move == 'play':
                 self.money -= 10 
                 for i in range(5):
                     i = random.randint(1,6)
                     self.dice_rolls.append(i)
                 print(f'Your current dice rolls : {self.dice_rolls}')
-            if move == 'quit':
+                move_2 = input('What is decision 1.roll 2.score now :')
+                if move_2 == 'score':
+                    print(self.score())
+                elif move_2 == 'roll':
+                    roll_index = input('Which is the dice you want to reroll:')
+            elif move == 'quit':
+                print(f'Your total money is ${self.money}')
                 break
-            elif move == 'score':
-                self.score()
-            elif move == 'roll':
-                roll_index = input('Which is the dice you want to reroll:')
             else:
                 print('Please try again cant recognise command.')
 
@@ -48,24 +50,28 @@ class Poker:
                 unique.append(i)
         if len(unique) == 1:
             self.money += 30
-            return 'Five Of A Kind'
+            return 'Five Of A Kind , +$30'
         elif len(unique) == 2:
             for i in unique:
                 counts = self.dice_rolls.count(i)
                 if counts == 3 or counts == 2:
-                    return 'Full House'
+                    self.money += 12
+                    return 'Full House , +$12'
                 else:
-                    return 'Four of a kind'
+                    self.money += 15
+                    return 'Four of a kind ,+$15'
         elif len(unique) == 3:
             for i in unique:
                 counts = self.dice_rolls.count(i)
                 if counts == 2:
-                    return 'Two Pair'
+                    self.money += 5
+                    return 'Two Pair , +$5'
                 elif counts == 3:
-                    return 'Three Of a kind'
+                    self.money += 8
+                    return 'Three Of a kind ,+$8'
         if self.dice_rolls == [1,2,3,4,5] or self.dice_rolls == [2,3,4,5,6]:
-            self.money += 25
-            return 'Straight' 
+            self.money += 20
+            return 'Straight , +$20' 
         else:
             return 'Nothing matched'
 
