@@ -6,6 +6,11 @@ class Poker:
     dice_rolls = []
     round = 1
     def __init__(self):
+        self.play()
+
+
+
+    def play(self):
         while self.money>0:
             print(f'Your money: ${self.money}')
             move = input('What is your move 1.play 2.quit:')
@@ -16,7 +21,7 @@ class Poker:
                 for i in range(5):
                     i = random.randint(1,6)
                     self.dice_rolls.append(i)
-                print(f'Your current dice rolls : {self.dice_rolls}')
+                print(f'Your current dice rolls : {self.value()}')
                 while self.round == 1:
 
                     move_2 = input('What is decision 1.roll 2.score now :')
@@ -24,11 +29,15 @@ class Poker:
                         print(self.score())
                         self.round = 0
                     elif move_2 == 'roll':
-                        self.roll -=1
+                        
                         while self.rolls >0:
-                            roll_index = int(input('Which is the dice you want to reroll: 0,1,2,3,4,5'))
-                            if roll_index >= 0 and roll_index <= 5:
+                            self.rolls -= 1
+                            roll_index = int(input('Which is the dice you want to reroll: 0,1,2,3,4,5 or -1 to keep curent hand:'))
+                            if roll_index >= 0 and roll_index <= 5 and roll_index != '':
                                 self.roll(roll_index)
+                                print(self.value())
+                            else:
+                                break
                     elif move == 'quit':
                         print(f'Your total money is ${self.money}')
                         break
@@ -39,10 +48,6 @@ class Poker:
                 break
             else:
                 print('Please try again cant recognise command.')
-
-
-
-
     
     def roll(self,dice_change):
         self.dice_rolls[dice_change] = random.randint(1,6)
