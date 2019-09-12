@@ -4,28 +4,36 @@ class Poker:
     money = 100
     rolls = 2
     dice_rolls = []
+    round = 1
     def __init__(self):
         while self.money>0:
             print(f'Your money: ${self.money}')
             move = input('What is your move 1.play 2.quit:')
             if move == 'play':
+                self.round = 1
                 self.money -= 10 
+                self.dice_rolls = []
                 for i in range(5):
                     i = random.randint(1,6)
                     self.dice_rolls.append(i)
                 print(f'Your current dice rolls : {self.dice_rolls}')
-                move_2 = input('What is decision 1.roll 2.score now :')
-                if move_2 == 'score':
-                    print(self.score())
-                elif move_2 == 'roll':
-                    roll_index = int(input('Which is the dice you want to reroll:'))
-                    if roll_index >= 0 and roll_index <= 5:
-                        self.roll(roll_index)
-                elif move == 'quit':
-                    print(f'Your total money is ${self.money}')
-                    break
-                else:
-                    print('Please try again cant recognise command.')
+                while self.round == 1:
+
+                    move_2 = input('What is decision 1.roll 2.score now :')
+                    if move_2 == 'score':
+                        print(self.score())
+                        self.round = 0
+                    elif move_2 == 'roll':
+                        self.roll -=1
+                        while self.rolls >0:
+                            roll_index = int(input('Which is the dice you want to reroll: 0,1,2,3,4,5'))
+                            if roll_index >= 0 and roll_index <= 5:
+                                self.roll(roll_index)
+                    elif move == 'quit':
+                        print(f'Your total money is ${self.money}')
+                        break
+                    else:
+                        print('Please try again cant recognise command.')
             elif move == 'quit':
                 print(f'Your total money is ${self.money}')
                 break
@@ -37,7 +45,7 @@ class Poker:
 
     
     def roll(self,dice_change):
-        self.dice_rolls[dice_change] = 2
+        self.dice_rolls[dice_change] = random.randint(1,6)
     
     def value(self):
         return self.dice_rolls
